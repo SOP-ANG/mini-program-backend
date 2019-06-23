@@ -49,12 +49,4 @@ public class UserController extends BaseController {
         return userView;
     }
 
-//    public ResponseResult validateWxLogin(@RequestParam(name = "code") String code,
-//                                          @RequestParam(name = "nickName") String nickName,
-//                                          @RequestParam(name = "gender") Byte gender,
-//                                          @RequestParam(name = "avatarUrl") String avatarUrl,
-//                                          @RequestParam(name = "country") String country,
-//                                          @RequestParam(name = "province") String province,
-//                                          @RequestParam(name = "city") String city) throws ResponseException
-
 }
