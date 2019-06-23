@@ -1,0 +1,18 @@
+# 自定义属性配置
+com.sop.miniprogrambackend.jscode2session_uri=com.sop.miniprogrambackend.jscode2session_uri
+com.sop.miniprogrambackend.appid=com.sop.miniprogrambackend.appid
+com.sop.miniprogrambackend.secret=com.sop.miniprogrambackend.secret
+
+# 集成 mybatis
+mybatis.mapper-locations=classpath:mapping/*.xml
+# 打印 sql
+logging.level.com.sop.miniprogrambackend.model=debug
+
+# 配置数据源
+spring.datasource.name=mini-program-backend
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=spring.datasource.url
+spring.datasource.username=spring.datasource.username
+spring.datasource.password=spring.datasource.password
+# 使用 druid 数据源
+spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
