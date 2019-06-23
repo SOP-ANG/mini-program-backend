@@ -78,10 +78,16 @@ public class UserServiceImpl implements UserService {
             throw new ResponseException(validationResult.getErrMsg(), EnumResponseError.DATA_VALIDATION_ERROR);
         }
 
-        // 判断用户是否存在，存在即返回
+        // 判断用户是否存在，存在更新数据后返回
         UserWxDO userWxDO = this.userWxDOMapper.selectByPrimaryKey(userDomain.getOpenid());
         if(userWxDO != null) {
+            BeanUtils.copyProperties(userDomain, userWxDO);
+            userWxDO.setSessionKey(userDomain.getSession_key());
+            this.userWxDOMapper.updateByPrimaryKeySelective(userWxDO);
+
             UserDO userDO = this.userDOMapper.selectByPrimaryKey(userWxDO.getUserId());
+            BeanUtils.copyProperties(userDomain, userDO);
+            this.userDOMapper.updateByPrimaryKeySelective(userDO);
             return this.convertFromDataObject(userDO, userWxDO);
         }
 
