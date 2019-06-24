@@ -34,3 +34,6 @@ build/
 **/resources/*.properties
 **/resources/*.xml
 !**/resources/log4j.properties
+
+### mac files ###
+.DS_Store

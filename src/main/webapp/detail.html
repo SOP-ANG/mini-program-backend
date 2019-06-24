@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>参与活动会员列表 - YADA</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">YADA</a>
+            </div>
+        </nav>
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard"></i>首页</a>
+                    </li>
+                    <li>
+                        <a href="table.html" class="active-menu"><i class="fa fa-table"></i>会员列表</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+        <div id="page-wrapper" >
+            <div id="page-inner">
+             <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                            会员 <small>课程详情</small>
+                        </h1>
+                    </div>
+                </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             赵一的已打卡课程列表
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>课程</th>
+                                            <th>录音</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>《颐和园》<a id="switch1" href="#">显示/隐藏文章</a><div id="content1" style="display:none"><p>北京的颐和园是个美丽的大公园。
+
+　　进了颐和园的大门，绕过大殿，就来到有名的长廊。绿漆的柱子，红漆的栏杆，一眼望不到头。这条长廊有七百多米长，分成273间。每一间的横槛上都有五彩的画，画着人物、花草、风景，几千幅画没有哪两幅是相同的。长廊两旁栽满了花木，这一种花还没谢，那一种花又开了。微风从左边的昆明湖上吹来，使人神清气爽。
+
+　　走完长廊，就来到了万寿山脚下。抬头一看，一座八角宝塔形的三层建筑耸立在半山腰上，黄色的琉璃瓦闪闪发光。那就是佛香阁。下面的一排排金碧辉煌的宫殿，就是排云殿。
+
+　　登上万寿山，站在佛香阁的前面向下望，颐和园的景色大半收在眼底。葱郁的树丛，掩映着黄的绿的琉璃瓦屋顶和朱红的宫墙。正前面，昆明湖静得像一面镜子，绿得像一块碧玉。游船、画舫在湖面慢慢地滑过，几乎不留一点儿痕迹。向东远眺，隐隐约约可以望见几座古老的城楼和城里的白塔。
+
+　　从万寿山下来，就是昆明湖。昆明湖围着长长的堤岸，堤上有好几座式样不同的石桥，两岸栽着数不清的垂柳。湖中心有个小岛，远远望去，岛上一片葱绿，树丛中露出宫殿的一角。游人走过长长的石桥，就可以去小岛上玩。这座石桥有十七个桥洞，叫十七孔桥;桥栏杆上有上百根石柱，柱子上都雕刻着小狮子。这么多的狮子，姿态不一，没有哪两只是相同的。
+
+　　颐和园到处有美丽的景色，说也说不尽，希望你有机会去细细游赏</p></div></td>
+                                            <td><div><i class="fa fa-play"></i> 播放录音</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+               <footer><p>Copyright &copy; 2019. 海选选拔宣传推广后端</p></footer>
+    </div>
+            </div>
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+    <script src="assets/js/custom-scripts.js"></script>
+    <script>
+            $(document).ready(function () {
+
+                $('#dataTables-example').dataTable();
+
+                $("#switch1").click(function(){
+                    $("#content1").toggle();
+                });
+            });
+    </script>
+
+
+</body>
+</html>
