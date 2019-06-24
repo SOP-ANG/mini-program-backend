@@ -7,9 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ClockInDomain {
+public class CourseDomain {
     private Integer id;
-    private Integer user_id;
-    private Integer course_id;
-    private Integer times;
+    private String title;
+    private String content;
+    private String grade;
+
 }
