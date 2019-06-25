@@ -21,6 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -92,13 +95,35 @@ public class UserServiceImpl implements UserService {
         }
 
         // 生成用户记录
-        UserDO userDOCreate = this.convertFromDomain(userDomain);
+        UserDO userDOCreate = this.convertUserFromDomain(userDomain);
         this.userDOMapper.insertSelective(userDOCreate);
         userDomain.setId(userDOCreate.getId());
         // 生成用户微信记录
-        this.userWxDOMapper.insertSelective(this.convertWxFromDomain(userDomain));
+        this.userWxDOMapper.insertSelective(this.convertUserWxFromDomain(userDomain));
 
         return userDomain;
+    }
+
+    /**
+     * 获取所有用户
+     * 只要 id、nickName、district、school、grade
+     * @return
+     */
+    @Override
+    public List<UserDomain> getUsers() {
+        List<UserDO> userDOList = this.userDOMapper.selectAll();
+        return userDOList.stream().map(this::convertUserFromDataObject).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取所有会员 id
+     * 是否会员，主要看有没有填写年级
+     * @return
+     */
+    @Override
+    public List<Integer> getMemberIds() {
+        List<UserDO> userDOList = this.userDOMapper.selectMemberId();
+        return userDOList.stream().map(UserDO::getId).collect(Collectors.toList());
     }
 
     public UserDomain convertFromDataObject(UserDO userDO, UserWxDO userWxDO) {
@@ -112,7 +137,16 @@ public class UserServiceImpl implements UserService {
         return userDomain;
     }
 
-    public UserDO convertFromDomain(UserDomain userDomain) {
+    public UserDomain convertUserFromDataObject(UserDO userDO) {
+        if(userDO == null) {
+            return null;
+        }
+        UserDomain userDomain = new UserDomain();
+        BeanUtils.copyProperties(userDO, userDomain);
+        return userDomain;
+    }
+
+    public UserDO convertUserFromDomain(UserDomain userDomain) {
         if(userDomain == null) {
             return null;
         }
@@ -121,7 +155,7 @@ public class UserServiceImpl implements UserService {
         return userDO;
     }
 
-    public UserWxDO convertWxFromDomain(UserDomain userDomain) {
+    public UserWxDO convertUserWxFromDomain(UserDomain userDomain) {
         if(userDomain == null) {
             return null;
         }

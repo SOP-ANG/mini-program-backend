@@ -26,6 +26,9 @@
     -->
     id, nick_name, gender, avatar_url, country, province, city, district, school, grade
   </sql>
+  <sql id="Display_Column_List">
+    id, nick_name, district, school, grade
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
@@ -36,6 +39,18 @@
     <include refid="Base_Column_List" />
     from mp_user
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectMemberId" resultMap="BaseResultMap">
+    select
+    id
+    from mp_user
+    where grade is not null
+    and grade != ''
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Display_Column_List" />
+    from mp_user
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--

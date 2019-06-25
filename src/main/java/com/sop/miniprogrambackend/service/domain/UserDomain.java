@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 /**
  * 用户领域模型
@@ -41,4 +42,7 @@ public class UserDomain {
     private String school;
 
     private String grade;
+
+    // 用户打卡条目
+    private List<ClockInDomain> clockInDomainList;
 }

@@ -4,12 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 打卡领域模型
+ */
 @Getter
 @Setter
 @ToString
 public class ClockInDomain {
     private Integer id;
-    private Integer user_id;
-    private Integer course_id;
-    private Integer times;
+    private Integer userId;
+    private Integer courseId;
+    private boolean done;
 }

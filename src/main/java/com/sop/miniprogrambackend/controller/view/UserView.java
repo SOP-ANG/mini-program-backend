@@ -12,7 +12,9 @@ import lombok.ToString;
 @ToString
 public class UserView {
     private Integer id;
+    private String nickName;
     private String district;
     private String school;
     private String grade;
+    private Integer clockInTimes;
 }

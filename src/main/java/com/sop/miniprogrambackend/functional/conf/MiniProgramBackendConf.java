@@ -18,4 +18,5 @@ public class MiniProgramBackendConf {
     private String jscode2session_uri;
     private String appid;
     private String secret;
+    private Integer member_finished_clock_in_times;
 }
