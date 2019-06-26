@@ -15,4 +15,5 @@ public class ClockInDomain {
     private Integer userId;
     private Integer courseId;
     private boolean done;
+    private String record_path;
 }

@@ -40,6 +40,16 @@ public class UserController extends BaseController {
         return ResponseResult.generate(this.convertFromDomain(userDomainRes));
     }
 
+    /**
+     * 用户登记
+     * @param userDomain
+     * @return
+     */
+    @PostMapping("/register")
+    public ResponseResult register(@RequestBody UserDomain userDomain) throws ResponseException {
+        return ResponseResult.generate(null);
+    }
+
     private UserView convertFromDomain(UserDomain userDomain) {
         if(userDomain == null) {
             return null;

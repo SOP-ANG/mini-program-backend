@@ -1,7 +1,6 @@
 package com.sop.miniprogrambackend.controller;
 
 import com.sop.miniprogrambackend.controller.view.UserView;
-import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.BackendService;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -25,7 +23,7 @@ public class BackendController extends BaseController {
     private BackendService backendService;
 
     @RequestMapping("/")
-    public String index(Map<String, Object> paramMap) throws ResponseException {
+    public String index(Map<String, Object> paramMap) {
         List<Integer> memberIds = this.backendService.getMemberIds();
         paramMap.put("member_count", memberIds.size());
         paramMap.put("finished_member_count", this.backendService.getFinishedMemberCount(memberIds));
@@ -42,7 +40,6 @@ public class BackendController extends BaseController {
     public String getDetail(Map<String, Object> paramMap,
                             @RequestParam(name = "userId") Integer userId,
                             @RequestParam(name = "nickName") String nickName) {
-        logger.info(userId + nickName);
         paramMap.put("userId", userId);
         paramMap.put("nickName", nickName);
         return "detail";
