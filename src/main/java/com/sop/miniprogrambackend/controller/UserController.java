@@ -47,6 +47,13 @@ public class UserController extends BaseController {
      */
     @PostMapping("/register")
     public ResponseResult register(@RequestBody UserDomain userDomain) throws ResponseException {
+        if(userDomain.getId() == null || userDomain.getId() == 0) {
+            throw new ResponseException("传入用户 id 错误", EnumResponseError.DATA_VALIDATION_ERROR);
+        }
+        if(StringUtils.isBlank(userDomain.getGrade())) {
+            throw new ResponseException("用户注册登记时必须填写所在\"年级\"", EnumResponseError.DATA_VALIDATION_ERROR);
+        }
+        this.userService.register(userDomain);
         return ResponseResult.generate(null);
     }
 

@@ -39,4 +39,10 @@ public interface UserService {
      * @return
      */
     public List<Integer> getMemberIds();
+
+    /**
+     * 登记用户必要信息
+     * @param userDomain
+     */
+    public void register(UserDomain userDomain) throws ResponseException;
 }

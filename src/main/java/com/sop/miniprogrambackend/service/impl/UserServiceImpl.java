@@ -126,6 +126,26 @@ public class UserServiceImpl implements UserService {
         return userDOList.stream().map(UserDO::getId).collect(Collectors.toList());
     }
 
+    /**
+     * 登记用户必要信息
+     * @param userDomain
+     */
+    @Override
+    @Transactional
+    public void register(UserDomain userDomain) throws ResponseException {
+        if(userDomain == null || StringUtils.isBlank(userDomain.getGrade())) {
+            throw new ResponseException("用户注册登记信息不全", EnumResponseError.DATA_VALIDATION_ERROR);
+        }
+        UserDO userDO = this.userDOMapper.selectByPrimaryKey(userDomain.getId());
+        if(userDO == null) {
+            throw new ResponseException("用户不存在，需重新授权微信登录", EnumResponseError.DATA_VALIDATION_ERROR);
+        }
+        // 补充新数据
+        BeanUtils.copyProperties(userDomain, userDO);
+        // 更新入库
+        this.userDOMapper.updateByPrimaryKeySelective(userDO);
+    }
+
     public UserDomain convertFromDataObject(UserDO userDO, UserWxDO userWxDO) {
         if(userDO == null || userWxDO == null) {
             return null;
