@@ -1,9 +1,13 @@
 package com.sop.miniprogrambackend.service;
 
+import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
 
 import java.util.List;
 
+/**
+ * 定义后台服务规范
+ */
 public interface BackendService {
     /**
      * 获取会员 id
@@ -24,4 +28,10 @@ public interface BackendService {
      * @return
      */
     public List<UserDomain> getUsersInfo();
+
+    /**
+     * 获取已打卡课程列表
+     * @return
+     */
+    public List<ClockInDomain> getFinishedClockInList(Integer userId);
 }

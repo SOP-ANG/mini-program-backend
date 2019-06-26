@@ -48,6 +48,17 @@
     from mp_course
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByCourseIds" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mp_course
+    where id in
+    <foreach collection="list" item="courseId" index="index" open="(" close=")" separator=",">
+      #{courseId}
+    </foreach>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

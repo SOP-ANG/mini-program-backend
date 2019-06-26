@@ -1,16 +1,13 @@
-package com.sop.miniprogrambackend.service.domain;
+package com.sop.miniprogrambackend.controller.view;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * 打卡领域模型
- */
 @Getter
 @Setter
 @ToString
-public class ClockInDomain {
+public class ClockInView {
     private Integer id;
     private Integer userId;
     private Integer courseId;
