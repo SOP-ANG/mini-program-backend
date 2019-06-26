@@ -58,4 +58,6 @@ public interface ClockInDOMapper {
      * @mbg.generated Tue Jun 25 14:00:02 CST 2019
      */
     int updateByPrimaryKey(ClockInDO record);
+
+    int updateDoneByUserIdAndCourseIdSelective(ClockInDO record);
 }

@@ -153,4 +153,14 @@
       record_path = #{recordPath,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateDoneByUserIdAndCourseIdSelective" parameterType="com.sop.miniprogrambackend.model.data.ClockInDO">
+    update mp_clock_in
+    <set>
+      <if test="done != null">
+        done = #{done,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+    and course_id = #{courseId,jdbcType=INTEGER}
+  </update>
 </mapper>

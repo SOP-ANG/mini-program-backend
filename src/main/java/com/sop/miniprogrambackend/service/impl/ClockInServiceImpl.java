@@ -3,7 +3,6 @@ package com.sop.miniprogrambackend.service.impl;
 import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.functional.validator.ValidationImpl;
-import com.sop.miniprogrambackend.functional.validator.ValidationResult;
 import com.sop.miniprogrambackend.model.ClockInDOMapper;
 import com.sop.miniprogrambackend.model.data.ClockInDO;
 import com.sop.miniprogrambackend.service.ClockInService;
@@ -137,6 +136,17 @@ public class ClockInServiceImpl implements ClockInService {
     @Override
     public List<ClockInDomain> getClockInWithCourseByUserId(Integer userId) throws ResponseException {
         return this.getClockInWithCourseByUserId(userId, false);
+    }
+
+    /**
+     * 分享朋友圈成功后标记打卡成功
+     * @param clockInDomain
+     */
+    @Override
+    @Transactional
+    public void clockInDone(ClockInDomain clockInDomain) {
+        clockInDomain.setDone(true);
+        this.clockInDOMapper.updateDoneByUserIdAndCourseIdSelective(this.convertFromDomain(clockInDomain));
     }
 
     public ClockInDomain convertFromDataObject(ClockInDO clockInDO) {

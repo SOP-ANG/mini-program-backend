@@ -50,4 +50,10 @@ public interface ClockInService {
      * @return
      */
     public List<ClockInDomain> getClockInWithCourseByUserId(Integer userId) throws ResponseException;
+
+    /**
+     * 分享朋友圈成功后标记打卡成功
+     * @param clockInDomain
+     */
+    public void clockInDone(ClockInDomain clockInDomain);
 }

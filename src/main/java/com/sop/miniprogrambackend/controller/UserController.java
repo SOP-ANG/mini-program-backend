@@ -24,6 +24,7 @@ public class UserController extends BaseController {
     private UserService userService;
 
     /**
+     * 登录凭证校验接口
      * 校验用户登录凭证
      * @param userDomain
      * @return
@@ -41,6 +42,7 @@ public class UserController extends BaseController {
     }
 
     /**
+     * 注册补充信息接口
      * 用户登记，登记成功后生成"年级"对应的课文
      * @param userDomain
      * @return
