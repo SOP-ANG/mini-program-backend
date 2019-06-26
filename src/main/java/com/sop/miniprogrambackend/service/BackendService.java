@@ -1,5 +1,6 @@
 package com.sop.miniprogrambackend.service;
 
+import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
 
@@ -33,5 +34,5 @@ public interface BackendService {
      * 获取已打卡课程列表
      * @return
      */
-    public List<ClockInDomain> getFinishedClockInList(Integer userId);
+    public List<ClockInDomain> getFinishedClockInList(Integer userId) throws ResponseException;
 }

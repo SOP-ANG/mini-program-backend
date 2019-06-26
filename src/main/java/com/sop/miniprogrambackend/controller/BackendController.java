@@ -2,6 +2,7 @@ package com.sop.miniprogrambackend.controller;
 
 import com.sop.miniprogrambackend.controller.view.ClockInView;
 import com.sop.miniprogrambackend.controller.view.UserView;
+import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.BackendService;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
@@ -59,7 +60,7 @@ public class BackendController extends BaseController {
     @RequestMapping("/detail")
     public String getDetail(Map<String, Object> paramMap,
                             @RequestParam(name = "userId") Integer userId,
-                            @RequestParam(name = "nickName") String nickName) {
+                            @RequestParam(name = "nickName") String nickName) throws ResponseException {
         paramMap.put("userId", userId);
         paramMap.put("nickName", nickName);
 

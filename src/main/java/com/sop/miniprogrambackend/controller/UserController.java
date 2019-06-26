@@ -41,7 +41,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 用户登记
+     * 用户登记，登记成功后生成"年级"对应的课文
      * @param userDomain
      * @return
      */

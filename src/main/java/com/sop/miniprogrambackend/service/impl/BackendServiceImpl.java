@@ -1,6 +1,7 @@
 package com.sop.miniprogrambackend.service.impl;
 
 import com.sop.miniprogrambackend.functional.conf.MiniProgramBackendConf;
+import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.BackendService;
 import com.sop.miniprogrambackend.service.ClockInService;
 import com.sop.miniprogrambackend.service.CourseService;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -83,26 +83,7 @@ public class BackendServiceImpl implements BackendService {
      * @return
      */
     @Override
-    public List<ClockInDomain> getFinishedClockInList(Integer userId) {
-        // 获取打卡记录
-        List<Integer> userIds = new ArrayList<>();
-        userIds.add(userId);
-        Map<Integer, List<ClockInDomain>> idClockInMap = this.clockInService.getClockIn(userIds, true);
-        if(idClockInMap == null) {
-            return null;
-        }
-        List<ClockInDomain> clockInDomainList = idClockInMap.get(userId);
-        // 填充标题和内容
-        Map<Integer, CourseDomain> courseDomainMap = this.courseService.getCourseList(
-                clockInDomainList.stream().map(ClockInDomain::getCourseId).collect(Collectors.toList()));
-        for(ClockInDomain clockInDomain: clockInDomainList) {
-            if(clockInDomain.getCourseId() == 0 || !courseDomainMap.containsKey(clockInDomain.getCourseId())) {
-                continue;
-            }
-            CourseDomain courseDomain = courseDomainMap.get(clockInDomain.getCourseId());
-            clockInDomain.setTitle(courseDomain.getTitle());
-            clockInDomain.setContent(courseDomain.getContent());
-        }
-        return clockInDomainList;
+    public List<ClockInDomain> getFinishedClockInList(Integer userId) throws ResponseException {
+        return this.clockInService.getClockInWithCourseByUserId(userId, true);
     }
 }

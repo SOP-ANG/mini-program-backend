@@ -10,6 +10,7 @@ import com.sop.miniprogrambackend.model.UserDOMapper;
 import com.sop.miniprogrambackend.model.UserWxDOMapper;
 import com.sop.miniprogrambackend.model.data.UserDO;
 import com.sop.miniprogrambackend.model.data.UserWxDO;
+import com.sop.miniprogrambackend.service.ClockInService;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
 import com.sop.miniprogrambackend.service.domain.WxApiDomain;
 import com.sop.miniprogrambackend.service.UserService;
@@ -40,6 +41,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserWxDOMapper userWxDOMapper;
+
+    @Autowired
+    private ClockInService clockInService;
 
     /**
      * 登录凭证校验
@@ -140,10 +144,12 @@ public class UserServiceImpl implements UserService {
         if(userDO == null) {
             throw new ResponseException("用户不存在，需重新授权微信登录", EnumResponseError.DATA_VALIDATION_ERROR);
         }
-        // 补充新数据
+        // 补充新用户数据
         BeanUtils.copyProperties(userDomain, userDO);
-        // 更新入库
+        // 更新用户入库
         this.userDOMapper.updateByPrimaryKeySelective(userDO);
+        // 根据年级生成课文列表
+        this.clockInService.generateClockInList(userDomain.getId(), userDomain.getGrade());
     }
 
     public UserDomain convertFromDataObject(UserDO userDO, UserWxDO userWxDO) {

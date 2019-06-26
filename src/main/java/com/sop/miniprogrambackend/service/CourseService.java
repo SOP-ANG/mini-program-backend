@@ -14,5 +14,12 @@ public interface CourseService {
      * @param courseIds
      * @return
      */
-    public Map<Integer, CourseDomain> getCourseList(List<Integer> courseIds);
+    public Map<Integer, CourseDomain> getCourseListByIds(List<Integer> courseIds);
+
+    /**
+     * 根据年级获取课程
+     * @param grade
+     * @return
+     */
+    public List<CourseDomain> getCourseListByGrade(String grade);
 }

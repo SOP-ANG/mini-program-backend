@@ -19,18 +19,18 @@ public class BaseController {
      * @param ex
      * @return
      */
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.OK)
-    public Object handlerException(HttpServletRequest httpServletRequest, Exception ex) {
-        Map<String, Object> responseData = new HashMap<>();
-        if(ex instanceof ResponseException) {
-            ResponseException responseException = (ResponseException) ex;
-            responseData.put("errCode", responseException.getErrCode());
-            responseData.put("errMsg", responseException.getErrMsg());
-        } else {
-            responseData.put("errCode", EnumResponseError.UNKNOWN_ERROR.getErrCode());
-            responseData.put("errMsg", EnumResponseError.UNKNOWN_ERROR.getErrMsg());
-        }
-        return ResponseResult.generate(responseData, "failure");
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.OK)
+//    public Object handlerException(HttpServletRequest httpServletRequest, Exception ex) {
+//        Map<String, Object> responseData = new HashMap<>();
+//        if(ex instanceof ResponseException) {
+//            ResponseException responseException = (ResponseException) ex;
+//            responseData.put("errCode", responseException.getErrCode());
+//            responseData.put("errMsg", responseException.getErrMsg());
+//        } else {
+//            responseData.put("errCode", EnumResponseError.UNKNOWN_ERROR.getErrCode());
+//            responseData.put("errMsg", EnumResponseError.UNKNOWN_ERROR.getErrMsg());
+//        }
+//        return ResponseResult.generate(responseData, "failure");
+//    }
 }

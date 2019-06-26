@@ -59,6 +59,12 @@
       #{courseId}
     </foreach>
   </select>
+  <select id="selectIdByGrade" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    id
+    from mp_course
+    where grade = #{grade,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated

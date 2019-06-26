@@ -23,4 +23,31 @@ public interface ClockInService {
      * @return
      */
     public Map<Integer, List<ClockInDomain>> getClockIn(List<Integer> userIds);
+
+    /**
+     * 根据用户 id 和 年级生成课程列表
+     * @param userId
+     * @param grade
+     */
+    public void generateClockInList(Integer userId, String grade);
+
+    /**
+     * 根据用户 id 删除打卡记录
+     * @param userId
+     */
+    public void deleteByUserId(Integer userId);
+
+    /**
+     * 根据用户 id 获取已打卡课程
+     * @param userId
+     * @return
+     */
+    public List<ClockInDomain> getClockInWithCourseByUserId(Integer userId, boolean needFinished) throws ResponseException;
+
+    /**
+     * 根据用户 id 获取全部打卡课程（方法重载）
+     * @param userId
+     * @return
+     */
+    public List<ClockInDomain> getClockInWithCourseByUserId(Integer userId) throws ResponseException;
 }

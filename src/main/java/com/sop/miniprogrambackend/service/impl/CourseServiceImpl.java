@@ -19,8 +19,13 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseDOMapper courseDOMapper;
 
+    /**
+     * 获取课文（其他条件请用方法重载）
+     * @param courseIds
+     * @return
+     */
     @Override
-    public Map<Integer, CourseDomain> getCourseList(List<Integer> courseIds) {
+    public Map<Integer, CourseDomain> getCourseListByIds(List<Integer> courseIds) {
         if(courseIds == null || courseIds.size() == 0) {
             return null;
         }
@@ -28,6 +33,17 @@ public class CourseServiceImpl implements CourseService {
         List<CourseDomain> courseDomainList = courseDOList.stream().map(
                 this::convertFromDataObject).collect(Collectors.toList());
         return courseDomainList.stream().collect(Collectors.toMap(CourseDomain::getId, Function.identity()));
+    }
+
+    /**
+     * 根据年级获取课程
+     * @param grade
+     * @return
+     */
+    @Override
+    public List<CourseDomain> getCourseListByGrade(String grade) {
+        List<CourseDO> courseDOList = this.courseDOMapper.selectIdByGrade(grade);
+        return courseDOList.stream().map(this::convertFromDataObject).collect(Collectors.toList());
     }
 
     public CourseDomain convertFromDataObject(CourseDO courseDO) {
