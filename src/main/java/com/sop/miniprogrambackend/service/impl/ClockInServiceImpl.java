@@ -1,5 +1,6 @@
 package com.sop.miniprogrambackend.service.impl;
 
+import com.sop.miniprogrambackend.functional.conf.MiniProgramBackendConf;
 import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.functional.validator.ValidationImpl;
@@ -13,7 +14,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +28,7 @@ import java.util.stream.Collectors;
 public class ClockInServiceImpl implements ClockInService {
 
     @Autowired
-    private ValidationImpl validation;
+    private MiniProgramBackendConf conf;
 
     @Autowired
     private ClockInDOMapper clockInDOMapper;
@@ -147,6 +152,44 @@ public class ClockInServiceImpl implements ClockInService {
     public void clockInDone(ClockInDomain clockInDomain) {
         clockInDomain.setDone(true);
         this.clockInDOMapper.updateDoneByUserIdAndCourseIdSelective(this.convertFromDomain(clockInDomain));
+    }
+
+    /**
+     * 上传录音
+     * @param file
+     * @param userId
+     * @param courseId
+     * @return
+     */
+    @Override
+    public String uploadRecord(MultipartFile file, Integer userId, Integer courseId) throws ResponseException {
+        String fileName = file.getOriginalFilename();
+        String targetFileName = MessageFormat.format(
+                this.conf.getFile_name(),
+                new Object[]{"Record", userId, courseId, fileName.substring(fileName.lastIndexOf(".") + 1)});
+        File targetFile = new File(this.conf.getRecord_path(), targetFileName);
+        try {
+            file.transferTo(targetFile);
+        } catch (IOException e) {
+            throw new ResponseException("录音文件存储失败", EnumResponseError.DATA_CONVERT_ERROR);
+        }
+        return this.conf.getRelative_record_path() + targetFileName;
+    }
+
+    /**
+     * 储存录音文件路径
+     * @param userId
+     * @param courseId
+     * @param recordPath
+     */
+    @Override
+    @Transactional
+    public void saveClockInRecord(Integer userId, Integer courseId, String recordPath) {
+        ClockInDO clockInDO = new ClockInDO();
+        clockInDO.setUserId(userId);
+        clockInDO.setCourseId(courseId);
+        clockInDO.setRecordPath(recordPath);
+        this.clockInDOMapper.updateRecordPathByUserIdAndCourseIdSelective(clockInDO);
     }
 
     public ClockInDomain convertFromDataObject(ClockInDO clockInDO) {

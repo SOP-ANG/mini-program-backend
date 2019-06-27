@@ -60,4 +60,6 @@ public interface ClockInDOMapper {
     int updateByPrimaryKey(ClockInDO record);
 
     int updateDoneByUserIdAndCourseIdSelective(ClockInDO record);
+
+    int updateRecordPathByUserIdAndCourseIdSelective(ClockInDO record);
 }

@@ -19,4 +19,9 @@ public class MiniProgramBackendConf {
     private String appid;
     private String secret;
     private Integer member_finished_clock_in_times;
+    private String record_path;
+    private String relative_record_path;
+    private String img_path;
+    private String relative_img_path;
+    private String file_name;
 }

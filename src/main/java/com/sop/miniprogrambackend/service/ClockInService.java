@@ -2,7 +2,9 @@ package com.sop.miniprogrambackend.service;
 
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -56,4 +58,21 @@ public interface ClockInService {
      * @param clockInDomain
      */
     public void clockInDone(ClockInDomain clockInDomain);
+
+    /**
+     * 上传录音
+     * @param file
+     * @param userId
+     * @param courseId
+     * @return
+     */
+    public String uploadRecord(MultipartFile file, Integer userId, Integer courseId) throws ResponseException;
+
+    /**
+     * 储存录音文件路径
+     * @param userId
+     * @param courseId
+     * @param recordPath
+     */
+    public void saveClockInRecord(Integer userId, Integer courseId, String recordPath);
 }
