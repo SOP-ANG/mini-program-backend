@@ -1,5 +1,6 @@
 package com.sop.miniprogrambackend.controller;
 
+import com.sop.miniprogrambackend.controller.view.ClockInView;
 import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.functional.response.ResponseResult;
@@ -7,11 +8,13 @@ import com.sop.miniprogrambackend.service.ClockInService;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/clockIn")
@@ -32,9 +35,8 @@ public class ClockInController extends BaseController {
         if(clockInDomain.getUserId() == null || clockInDomain.getUserId() == 0) {
             throw new ResponseException("会员 id 必传", EnumResponseError.DATA_VALIDATION_ERROR);
         }
-        List<ClockInDomain> clockInDomainList = this.clockInService.getClockInWithCourseByUserId(
-                clockInDomain.getUserId());
-        return ResponseResult.generate(clockInDomainList);
+        return ResponseResult.generate(this.clockInService.getClockInWithCourseByUserId(
+                clockInDomain.getUserId()).stream().map(this::convertFromDomain).collect(Collectors.toList()));
     }
 
     /**
@@ -63,5 +65,14 @@ public class ClockInController extends BaseController {
     public ResponseResult clockInDone(@RequestBody ClockInDomain clockInDomain) {
         this.clockInService.clockInDone(clockInDomain);
         return ResponseResult.generate(null);
+    }
+
+    private ClockInView convertFromDomain(ClockInDomain clockInDomain) {
+        if(clockInDomain == null) {
+            return null;
+        }
+        ClockInView clockInView = new ClockInView();
+        BeanUtils.copyProperties(clockInDomain, clockInView);
+        return clockInView;
     }
 }

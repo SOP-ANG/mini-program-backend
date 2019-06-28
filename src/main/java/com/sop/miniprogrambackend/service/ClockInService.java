@@ -4,7 +4,6 @@ import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 

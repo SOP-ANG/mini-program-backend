@@ -59,7 +59,7 @@
       #{courseId}
     </foreach>
   </select>
-  <select id="selectIdByGrade" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+  <select id="selectIdByGrade" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     id
     from mp_course

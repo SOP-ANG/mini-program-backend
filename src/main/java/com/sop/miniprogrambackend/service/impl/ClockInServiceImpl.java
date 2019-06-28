@@ -53,7 +53,8 @@ public class ClockInServiceImpl implements ClockInService {
         } else {
             clockInDOList = this.clockInDOMapper.selectByUserIds(userIds);
         }
-        List<ClockInDomain> clockInDomainList = clockInDOList.stream().map(this::convertFromDataObject).collect(Collectors.toList());
+        List<ClockInDomain> clockInDomainList = clockInDOList.stream().map(
+                this::convertFromDataObject).collect(Collectors.toList());
         return clockInDomainList.stream().collect(Collectors.groupingBy(ClockInDomain::getUserId));
     }
 
@@ -110,7 +111,8 @@ public class ClockInServiceImpl implements ClockInService {
      * @return
      */
     @Override
-    public List<ClockInDomain> getClockInWithCourseByUserId(Integer userId, boolean needFinished) throws ResponseException {
+    public List<ClockInDomain> getClockInWithCourseByUserId(Integer userId,
+                                                            boolean needFinished) throws ResponseException {
         // 获取打卡记录
         List<Integer> userIds = new ArrayList<>();
         userIds.add(userId);
@@ -165,7 +167,7 @@ public class ClockInServiceImpl implements ClockInService {
     public String uploadRecord(MultipartFile file, Integer userId, Integer courseId) throws ResponseException {
         String fileName = file.getOriginalFilename();
         String targetFileName = MessageFormat.format(
-                this.conf.getFile_name(),
+                this.conf.getRecord_file_name(),
                 new Object[]{"Record", userId, courseId, fileName.substring(fileName.lastIndexOf(".") + 1)});
         File targetFile = new File(this.conf.getRecord_path(), targetFileName);
         try {

@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 打卡视图模型
+ */
 @Getter
 @Setter
 @ToString

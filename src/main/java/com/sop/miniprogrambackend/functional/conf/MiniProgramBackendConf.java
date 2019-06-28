@@ -23,5 +23,6 @@ public class MiniProgramBackendConf {
     private String relative_record_path;
     private String img_path;
     private String relative_img_path;
-    private String file_name;
+    private String record_file_name;
+    private String img_file_name;
 }
