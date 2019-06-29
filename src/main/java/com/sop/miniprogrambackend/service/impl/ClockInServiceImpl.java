@@ -3,7 +3,6 @@ package com.sop.miniprogrambackend.service.impl;
 import com.sop.miniprogrambackend.functional.conf.MiniProgramBackendConf;
 import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
-import com.sop.miniprogrambackend.functional.validator.ValidationImpl;
 import com.sop.miniprogrambackend.model.ClockInDOMapper;
 import com.sop.miniprogrambackend.model.data.ClockInDO;
 import com.sop.miniprogrambackend.service.ClockInService;
@@ -89,7 +88,7 @@ public class ClockInServiceImpl implements ClockInService {
         for(CourseDomain courseDomain: courseDomainList) {
             ClockInDomain clockInDomain = new ClockInDomain();
             clockInDomain.setUserId(userId);
-            clockInDomain.setUserId(courseDomain.getId());
+            clockInDomain.setCourseId(courseDomain.getId());
             clockInDomain.setDone(false);
             this.clockInDOMapper.insertSelective(this.convertFromDomain(clockInDomain));
         }

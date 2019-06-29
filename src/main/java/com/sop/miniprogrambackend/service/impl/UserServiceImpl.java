@@ -77,9 +77,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDomain createUser(UserDomain userDomain) throws ResponseException {
         // 必要数据校验
-        if(userDomain == null) {
-            throw new ResponseException(EnumResponseError.DATA_VALIDATION_ERROR);
-        }
         ValidationResult validationResult = this.validation.validate(userDomain);
         if(!validationResult.isPassed()) {
             throw new ResponseException(validationResult.getErrMsg(), EnumResponseError.DATA_VALIDATION_ERROR);
@@ -93,7 +90,7 @@ public class UserServiceImpl implements UserService {
             this.userWxDOMapper.updateByPrimaryKeySelective(userWxDO);
 
             UserDO userDO = this.userDOMapper.selectByPrimaryKey(userWxDO.getUserId());
-            BeanUtils.copyProperties(userDomain, userDO);
+            BeanUtils.copyProperties(userDomain, userDO, new String[]{"id", "nickName", "district", "school", "grade"});
             this.userDOMapper.updateByPrimaryKeySelective(userDO);
             return this.convertFromDataObject(userDO, userWxDO);
         }
@@ -145,7 +142,8 @@ public class UserServiceImpl implements UserService {
             throw new ResponseException("用户不存在，需重新授权微信登录", EnumResponseError.DATA_VALIDATION_ERROR);
         }
         // 补充新用户数据
-        BeanUtils.copyProperties(userDomain, userDO);
+        BeanUtils.copyProperties(userDomain, userDO,
+                new String[]{"id", "gender", "avatarUrl", "country", "province", "city"});
         // 更新用户入库
         this.userDOMapper.updateByPrimaryKeySelective(userDO);
         // 根据年级生成课文列表
