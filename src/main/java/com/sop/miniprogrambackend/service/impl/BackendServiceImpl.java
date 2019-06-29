@@ -4,15 +4,12 @@ import com.sop.miniprogrambackend.functional.conf.MiniProgramBackendConf;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.BackendService;
 import com.sop.miniprogrambackend.service.ClockInService;
-import com.sop.miniprogrambackend.service.CourseService;
 import com.sop.miniprogrambackend.service.UserService;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
-import com.sop.miniprogrambackend.service.domain.CourseDomain;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,9 +25,6 @@ public class BackendServiceImpl implements BackendService {
 
     @Autowired
     private ClockInService clockInService;
-
-    @Autowired
-    private CourseService courseService;
 
     /**
      * 获得会员 id

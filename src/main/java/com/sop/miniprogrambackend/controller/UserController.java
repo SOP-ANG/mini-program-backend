@@ -67,5 +67,4 @@ public class UserController extends BaseController {
         BeanUtils.copyProperties(userDomain, userView);
         return userView;
     }
-
 }

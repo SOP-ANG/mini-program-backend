@@ -93,6 +93,13 @@
             <version>2.1.5.RELEASE</version>
         </dependency>
 
+        <!-- 引入 json 工具类 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,8 +1,11 @@
 package com.sop.miniprogrambackend.controller;
 
+import com.sop.miniprogrambackend.controller.view.ClockInView;
 import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.functional.response.ResponseResult;
+import com.sop.miniprogrambackend.service.domain.ClockInDomain;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,5 +35,14 @@ public class BaseController {
             responseData.put("errMsg", EnumResponseError.UNKNOWN_ERROR.getErrMsg());
         }
         return ResponseResult.generate(responseData, "failure");
+    }
+
+    public ClockInView convertClockInFromDomain(ClockInDomain clockInDomain) {
+        if(clockInDomain == null) {
+            return null;
+        }
+        ClockInView clockInView = new ClockInView();
+        BeanUtils.copyProperties(clockInDomain, clockInView);
+        return clockInView;
     }
 }

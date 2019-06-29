@@ -1,10 +1,8 @@
 package com.sop.miniprogrambackend.controller;
 
-import com.sop.miniprogrambackend.controller.view.ClockInView;
 import com.sop.miniprogrambackend.controller.view.UserView;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.BackendService;
-import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,12 +78,4 @@ public class BackendController extends BaseController {
         return userView;
     }
 
-    public ClockInView convertClockInFromDomain(ClockInDomain clockInDomain) {
-        if(clockInDomain == null) {
-            return null;
-        }
-        ClockInView clockInView = new ClockInView();
-        BeanUtils.copyProperties(clockInDomain, clockInView);
-        return clockInView;
-    }
 }
