@@ -6,12 +6,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-public class BaseControllerTest {
+public abstract class BaseControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    public MockMvc mockMvc;
+    protected MockMvc mockMvc;
 
     @Before
     public void setUp() {

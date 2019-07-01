@@ -48,6 +48,16 @@ public class CollectThumbsUpController {
                 this::convertFromDomain).collect(Collectors.toList()));
     }
 
+    /**
+     * 点赞接口
+     * @return
+     */
+    @PostMapping("/give")
+    public ResponseResult give(@RequestBody CollectThumbsUpDomain collectThumbsUpDomain) {
+        this.collectThumbsUpService.give(collectThumbsUpDomain);
+        return ResponseResult.generate(null);
+    }
+
     private CollectThumbsUpView convertFromDomain(CollectThumbsUpDomain collectThumbsUpDomain) {
         if(collectThumbsUpDomain == null) {
             return null;

@@ -55,8 +55,9 @@ public interface ClockInService {
     /**
      * 分享朋友圈成功后标记打卡成功
      * @param clockInDomain
+     * @return 返回成功打卡次数
      */
-    public void clockInDone(ClockInDomain clockInDomain);
+    public Integer clockInDone(ClockInDomain clockInDomain);
 
     /**
      * 上传录音

@@ -1,5 +1,6 @@
 package com.sop.miniprogrambackend.controller;
 
+import com.sop.miniprogrambackend.controller.view.UserView;
 import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.functional.response.ResponseResult;
@@ -60,7 +61,8 @@ public class ClockInController extends BaseController {
      */
     @PostMapping("/clockInDone")
     public ResponseResult clockInDone(@RequestBody ClockInDomain clockInDomain) {
-        this.clockInService.clockInDone(clockInDomain);
-        return ResponseResult.generate(null);
+        UserView userView = new UserView();
+        userView.setClockInTimes(this.clockInService.clockInDone(clockInDomain));
+        return ResponseResult.generate(userView);
     }
 }

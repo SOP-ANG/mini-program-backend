@@ -9,6 +9,7 @@ import com.sop.miniprogrambackend.service.ClockInService;
 import com.sop.miniprogrambackend.service.CourseService;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import com.sop.miniprogrambackend.service.domain.CourseDomain;
+import com.sop.miniprogrambackend.service.domain.UserDomain;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -147,12 +148,21 @@ public class ClockInServiceImpl implements ClockInService {
     /**
      * 分享朋友圈成功后标记打卡成功
      * @param clockInDomain
+     * @return 返回成功打卡次数
      */
     @Override
     @Transactional
-    public void clockInDone(ClockInDomain clockInDomain) {
+    public Integer clockInDone(ClockInDomain clockInDomain) {
         clockInDomain.setDone(true);
         this.clockInDOMapper.updateDoneByUserIdAndCourseIdSelective(this.convertFromDomain(clockInDomain));
+
+        List<Integer> userIds = new ArrayList<>();
+        userIds.add(clockInDomain.getUserId());
+        Map<Integer, List<ClockInDomain>> idClockInMap = this.getClockIn(userIds, true);
+        if(idClockInMap != null && idClockInMap.containsKey(clockInDomain.getUserId())) {
+            return idClockInMap.get(clockInDomain.getUserId()).size();
+        }
+        return 0;
     }
 
     /**

@@ -1,12 +1,9 @@
 package com.sop.miniprogrambackend.controller;
 
-import com.sop.miniprogrambackend.controller.view.UserView;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.service.BackendService;
-import com.sop.miniprogrambackend.service.domain.UserDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,16 +63,4 @@ public class BackendController extends BaseController {
                 this::convertClockInFromDomain).collect(Collectors.toList()));
         return "detail";
     }
-
-    public UserView convertUserFromDomain(UserDomain userDomain) {
-        if(userDomain == null) {
-            return null;
-        }
-        UserView userView = new UserView();
-        BeanUtils.copyProperties(userDomain, userView);
-        userView.setClockInTimes(
-                userDomain.getClockInDomainList() == null ? 0 : userDomain.getClockInDomainList().size());
-        return userView;
-    }
-
 }

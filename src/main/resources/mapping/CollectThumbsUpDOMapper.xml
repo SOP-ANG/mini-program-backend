@@ -64,6 +64,14 @@
     from mp_collect_thumbs_up
     order by thumbs_up_count desc
   </select>
+  <!-- 这里需要用 for update 实现一个上锁操作 -->
+  <select id="getThumbsUpCountById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    id,
+    thumbs_up_count
+    from mp_collect_thumbs_up
+    where id = #{id,jdbcType=INTEGER} for update
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated
@@ -185,6 +193,15 @@
       work_name = #{workName,jdbcType=VARCHAR},
       img_path = #{imgPath,jdbcType=VARCHAR},
       thumbs_up_count = #{thumbsUpCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateThumbsUpCountByPrimaryKeySelective" parameterType="com.sop.miniprogrambackend.model.data.CollectThumbsUpDO">
+    update mp_collect_thumbs_up
+    <set>
+      <if test="thumbsUpCount != null">
+        thumbs_up_count = #{thumbsUpCount,jdbcType=INTEGER},
+      </if>
+    </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

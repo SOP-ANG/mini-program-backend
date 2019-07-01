@@ -38,7 +38,7 @@ public class UserController extends BaseController {
         BeanUtils.copyProperties(wxApiDomain, userDomain);
 
         UserDomain userDomainRes = this.userService.createUser(userDomain);
-        return ResponseResult.generate(this.convertFromDomain(userDomainRes));
+        return ResponseResult.generate(this.convertUserFromDomain(userDomainRes));
     }
 
     /**
@@ -57,14 +57,5 @@ public class UserController extends BaseController {
         }
         this.userService.register(userDomain);
         return ResponseResult.generate(null);
-    }
-
-    private UserView convertFromDomain(UserDomain userDomain) {
-        if(userDomain == null) {
-            return null;
-        }
-        UserView userView = new UserView();
-        BeanUtils.copyProperties(userDomain, userView);
-        return userView;
     }
 }

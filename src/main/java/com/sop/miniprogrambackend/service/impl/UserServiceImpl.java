@@ -11,6 +11,7 @@ import com.sop.miniprogrambackend.model.UserWxDOMapper;
 import com.sop.miniprogrambackend.model.data.UserDO;
 import com.sop.miniprogrambackend.model.data.UserWxDO;
 import com.sop.miniprogrambackend.service.ClockInService;
+import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
 import com.sop.miniprogrambackend.service.domain.WxApiDomain;
 import com.sop.miniprogrambackend.service.UserService;
@@ -22,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,11 +91,21 @@ public class UserServiceImpl implements UserService {
             BeanUtils.copyProperties(userDomain, userWxDO);
             userWxDO.setSessionKey(userDomain.getSession_key());
             this.userWxDOMapper.updateByPrimaryKeySelective(userWxDO);
+            Integer userId = userWxDO.getUserId();
 
             UserDO userDO = this.userDOMapper.selectByPrimaryKey(userWxDO.getUserId());
             BeanUtils.copyProperties(userDomain, userDO, new String[]{"id", "nickName", "district", "school", "grade"});
             this.userDOMapper.updateByPrimaryKeySelective(userDO);
-            return this.convertFromDataObject(userDO, userWxDO);
+            UserDomain userDomainExisted = this.convertFromDataObject(userDO, userWxDO);
+
+            // 获取打卡成功的数据
+            List<Integer> userIds = new ArrayList<>();
+            userIds.add(userDomainExisted.getId());
+            Map<Integer, List<ClockInDomain>> idClockInMap = this.clockInService.getClockIn(userIds, true);
+            if(idClockInMap != null && idClockInMap.containsKey(userDomainExisted.getId())) {
+                userDomainExisted.setClockInDomainList(idClockInMap.get(userDomainExisted.getId()));
+            }
+            return userDomainExisted;
         }
 
         // 生成用户记录

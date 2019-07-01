@@ -96,6 +96,19 @@ public class CollectThumbsUpServiceImpl implements CollectThumbsUpService {
         return collectThumbsUpDOList.stream().map(this::convertFromDataObject).collect(Collectors.toList());
     }
 
+    /**
+     * 点赞
+     * @param collectThumbsUpDomain
+     */
+    @Override
+    @Transactional
+    public void give(CollectThumbsUpDomain collectThumbsUpDomain) {
+        CollectThumbsUpDO collectThumbsUpDO = this.collectThumbsUpDOMapper.getThumbsUpCountById(
+                collectThumbsUpDomain.getId());
+        collectThumbsUpDO.setThumbsUpCount(collectThumbsUpDO.getThumbsUpCount() + 1);
+        this.collectThumbsUpDOMapper.updateThumbsUpCountByPrimaryKeySelective(collectThumbsUpDO);
+    }
+
     public CollectThumbsUpDO convertFromDomain(CollectThumbsUpDomain collectThumbsUpDomain) {
         if(collectThumbsUpDomain == null) {
             return null;

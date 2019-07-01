@@ -33,4 +33,10 @@ public interface CollectThumbsUpService {
      * @return
      */
     public List<CollectThumbsUpDomain> getAll();
+
+    /**
+     * 点赞
+     * @param collectThumbsUpDomain
+     */
+    public void give(CollectThumbsUpDomain collectThumbsUpDomain);
 }

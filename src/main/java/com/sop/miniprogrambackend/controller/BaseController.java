@@ -1,10 +1,12 @@
 package com.sop.miniprogrambackend.controller;
 
 import com.sop.miniprogrambackend.controller.view.ClockInView;
+import com.sop.miniprogrambackend.controller.view.UserView;
 import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.functional.response.ResponseResult;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
+import com.sop.miniprogrambackend.service.domain.UserDomain;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseController {
+public abstract class BaseController {
 
     /**
      * 定义一个 exception handler 解决未被 controller 层吸收的 exception
@@ -37,7 +39,18 @@ public class BaseController {
         return ResponseResult.generate(responseData, "failure");
     }
 
-    public ClockInView convertClockInFromDomain(ClockInDomain clockInDomain) {
+    protected UserView convertUserFromDomain(UserDomain userDomain) {
+        if(userDomain == null) {
+            return null;
+        }
+        UserView userView = new UserView();
+        BeanUtils.copyProperties(userDomain, userView);
+        userView.setClockInTimes(
+                userDomain.getClockInDomainList() == null ? 0 : userDomain.getClockInDomainList().size());
+        return userView;
+    }
+
+    protected ClockInView convertClockInFromDomain(ClockInDomain clockInDomain) {
         if(clockInDomain == null) {
             return null;
         }
