@@ -32,7 +32,9 @@ build/
 
 ### resources ###
 **/resources/*.properties
+**/resources/*.properties.local
 **/resources/*.xml
+**/resources/*.xml.local
 !**/resources/log4j.properties
 
 ### mac files ###

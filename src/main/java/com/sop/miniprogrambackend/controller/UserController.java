@@ -4,7 +4,6 @@ import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.functional.response.ResponseResult;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
-import com.sop.miniprogrambackend.controller.view.UserView;
 import com.sop.miniprogrambackend.service.UserService;
 import com.sop.miniprogrambackend.service.domain.WxApiDomain;
 import org.apache.commons.lang3.StringUtils;

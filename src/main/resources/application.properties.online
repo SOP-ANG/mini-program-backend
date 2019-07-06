@@ -1,18 +1,32 @@
 # 自定义属性配置
-com.sop.miniprogrambackend.jscode2session_uri=com.sop.miniprogrambackend.jscode2session_uri
-com.sop.miniprogrambackend.appid=com.sop.miniprogrambackend.appid
-com.sop.miniprogrambackend.secret=com.sop.miniprogrambackend.secret
+com.sop.miniprogrambackend.jscode2session_uri=https://api.weixin.qq.com/sns/jscode2session?appid={1}&secret={2}&js_code={3}&grant_type=authorization_code
+com.sop.miniprogrambackend.appid=appid
+com.sop.miniprogrambackend.secret=secret
+# 配置会员完成活动的打卡次数
+com.sop.miniprogrambackend.member_finished_clock_in_times=2
+# 配置会员上传的音频存放路径
+com.sop.miniprogrambackend.record_path=record_path
+# 配置会员上传的音频存放相对路径
+com.sop.miniprogrambackend.relative_record_path=record/
+# 配置会员上传的图片存放路径
+com.sop.miniprogrambackend.img_path=img_path
+# 配置会员上传的音频存放相对路径
+com.sop.miniprogrambackend.relative_img_path=user-images/
+# 配置文件名
+com.sop.miniprogrambackend.record_file_name={0}-{1}-{2}.{3}
+com.sop.miniprogrambackend.img_file_name={0}-{1}.{2}
 
 # 集成 mybatis
 mybatis.mapper-locations=classpath:mapping/*.xml
-# 打印 sql
-logging.level.com.sop.miniprogrambackend.model=debug
 
 # 配置数据源
 spring.datasource.name=mini-program-backend
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.datasource.url=spring.datasource.url
-spring.datasource.username=spring.datasource.username
-spring.datasource.password=spring.datasource.password
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/url
+spring.datasource.username=username
+spring.datasource.password=password
 # 使用 druid 数据源
 spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+
+# 配置静态资源访问路径
+spring.mvc.static-path-pattern=/static/**
