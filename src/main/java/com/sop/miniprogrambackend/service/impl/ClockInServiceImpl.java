@@ -10,6 +10,7 @@ import com.sop.miniprogrambackend.service.CourseService;
 import com.sop.miniprogrambackend.service.domain.ClockInDomain;
 import com.sop.miniprogrambackend.service.domain.CourseDomain;
 import com.sop.miniprogrambackend.service.domain.UserDomain;
+import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -154,6 +155,7 @@ public class ClockInServiceImpl implements ClockInService {
     @Transactional
     public Integer clockInDone(ClockInDomain clockInDomain) {
         clockInDomain.setDone(true);
+        clockInDomain.setClockInTs(Long.toString(new DateTime().getMillis()));
         this.clockInDOMapper.updateDoneByUserIdAndCourseIdSelective(this.convertFromDomain(clockInDomain));
 
         List<Integer> userIds = new ArrayList<>();

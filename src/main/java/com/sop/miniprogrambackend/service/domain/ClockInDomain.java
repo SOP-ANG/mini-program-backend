@@ -18,4 +18,5 @@ public class ClockInDomain {
     private String content;
     private boolean done;
     private String recordPath;
+    private String clockInTs;
 }

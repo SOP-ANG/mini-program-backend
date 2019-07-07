@@ -17,4 +17,5 @@ public class UserView {
     private String school;
     private String grade;
     private Integer clockInTimes;
+    private boolean hasClockIn;
 }

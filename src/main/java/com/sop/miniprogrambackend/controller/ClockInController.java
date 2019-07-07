@@ -63,6 +63,7 @@ public class ClockInController extends BaseController {
     public ResponseResult clockInDone(@RequestBody ClockInDomain clockInDomain) {
         UserView userView = new UserView();
         userView.setClockInTimes(this.clockInService.clockInDone(clockInDomain));
+        userView.setHasClockIn(true);
         return ResponseResult.generate(userView);
     }
 }
