@@ -17,7 +17,7 @@ public interface BackendService {
     public List<Integer> getMemberIds();
 
     /**
-     * 获取打卡满 28 次会员数
+     * 获取打卡满 14 次会员数
      * @param memberIds
      * @return
      */
