@@ -101,7 +101,10 @@
             $(document).ready(function () {
                 $('#dataTables-example').dataTable();
 
-                $('p.readView').html($('p.readView').html().replace(/\\n/g, "<br />").replace(/&amp;emsp;/g, "&emsp;"));
+                // 替换转义字符
+                $('p.readView').each(function () {
+                    $(this).html($(this).html().replace(/\\n/g, "<br />").replace(/&amp;emsp;/g, "&emsp;"));
+                });
             });
     </script>
     <script src="../static/js/custom-scripts.js"></script>
