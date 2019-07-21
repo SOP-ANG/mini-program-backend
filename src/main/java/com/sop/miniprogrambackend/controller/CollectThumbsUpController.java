@@ -1,10 +1,12 @@
 package com.sop.miniprogrambackend.controller;
 
 import com.sop.miniprogrambackend.controller.view.CollectThumbsUpView;
+import com.sop.miniprogrambackend.functional.response.EnumResponseError;
 import com.sop.miniprogrambackend.functional.response.ResponseException;
 import com.sop.miniprogrambackend.functional.response.ResponseResult;
 import com.sop.miniprogrambackend.service.CollectThumbsUpService;
 import com.sop.miniprogrambackend.service.domain.CollectThumbsUpDomain;
+import com.sop.miniprogrambackend.service.domain.UserDomain;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/collectThumbsUp")
-public class CollectThumbsUpController {
+public class CollectThumbsUpController extends BaseController {
 
     @Autowired
     private CollectThumbsUpService collectThumbsUpService;
@@ -42,8 +44,8 @@ public class CollectThumbsUpController {
      * 获取集赞列表接口
      * @return
      */
-    @GetMapping("/getList")
-    public ResponseResult getList() {
+    @PostMapping("/getList")
+    public ResponseResult getList(@RequestBody CollectThumbsUpDomain collectThumbsUpDomain) {
         return ResponseResult.generate(this.collectThumbsUpService.getAll().stream().map(
                 this::convertFromDomain).collect(Collectors.toList()));
     }
@@ -53,8 +55,18 @@ public class CollectThumbsUpController {
      * @return
      */
     @PostMapping("/give")
-    public ResponseResult give(@RequestBody CollectThumbsUpDomain collectThumbsUpDomain) {
-        this.collectThumbsUpService.give(collectThumbsUpDomain);
+    public ResponseResult give(@RequestBody CollectThumbsUpDomain collectThumbsUpDomain) throws ResponseException {
+        UserDomain userDomain = new UserDomain();
+        userDomain.setId(collectThumbsUpDomain.getUserId());
+        collectThumbsUpDomain.setUserId(null);
+
+        // 判断是否点过赞
+        if (this.collectThumbsUpService.hasGiven(userDomain)) {
+            throw new ResponseException("用户已经点过赞", EnumResponseError.DATA_VALIDATION_ERROR);
+        }
+
+        // 点赞
+        this.collectThumbsUpService.give(collectThumbsUpDomain, userDomain);
         return ResponseResult.generate(null);
     }
 

@@ -94,7 +94,8 @@ public class UserServiceImpl implements UserService {
             Integer userId = userWxDO.getUserId();
 
             UserDO userDO = this.userDOMapper.selectByPrimaryKey(userWxDO.getUserId());
-            BeanUtils.copyProperties(userDomain, userDO, new String[]{"id", "nickName", "district", "school", "grade"});
+            BeanUtils.copyProperties(userDomain, userDO, new String[]{
+                    "id", "nickName", "district", "school", "grade", "ignoreTs", "hasGiveThumbUp"});
             this.userDOMapper.updateByPrimaryKeySelective(userDO);
             UserDomain userDomainExisted = this.convertFromDataObject(userDO, userWxDO);
 
@@ -161,6 +162,22 @@ public class UserServiceImpl implements UserService {
         this.userDOMapper.updateByPrimaryKeySelective(userDO);
         // 根据年级生成课文列表
         this.clockInService.generateClockInList(userDomain.getId(), userDomain.getGrade());
+    }
+
+    /**
+     * 记录用户点赞行为
+     * @param userDomain
+     */
+    @Override
+    @Transactional
+    public void thumbUp(UserDomain userDomain) {
+        userDomain.setHasGiveThumbUp("yes");
+        this.userDOMapper.updateHasGiveThumbUpByIdSelective(this.convertUserFromDomain(userDomain));
+    }
+
+    @Override
+    public String getHasGiveThumbUp(UserDomain userDomain) {
+        return this.userDOMapper.selectHasGiveThumbUpById(userDomain.getId()).getHasGiveThumbUp();
     }
 
     public UserDomain convertFromDataObject(UserDO userDO, UserWxDO userWxDO) {

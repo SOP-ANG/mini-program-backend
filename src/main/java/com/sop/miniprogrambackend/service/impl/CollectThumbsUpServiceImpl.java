@@ -8,7 +8,10 @@ import com.sop.miniprogrambackend.functional.validator.ValidationResult;
 import com.sop.miniprogrambackend.model.CollectThumbsUpDOMapper;
 import com.sop.miniprogrambackend.model.data.CollectThumbsUpDO;
 import com.sop.miniprogrambackend.service.CollectThumbsUpService;
+import com.sop.miniprogrambackend.service.UserService;
 import com.sop.miniprogrambackend.service.domain.CollectThumbsUpDomain;
+import com.sop.miniprogrambackend.service.domain.UserDomain;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,9 @@ public class CollectThumbsUpServiceImpl implements CollectThumbsUpService {
 
     @Autowired
     private CollectThumbsUpDOMapper collectThumbsUpDOMapper;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 上传图片
@@ -102,11 +108,28 @@ public class CollectThumbsUpServiceImpl implements CollectThumbsUpService {
      */
     @Override
     @Transactional
-    public void give(CollectThumbsUpDomain collectThumbsUpDomain) {
+    public void give(CollectThumbsUpDomain collectThumbsUpDomain, UserDomain userDomain) {
+        // 点赞
         CollectThumbsUpDO collectThumbsUpDO = this.collectThumbsUpDOMapper.getThumbsUpCountById(
                 collectThumbsUpDomain.getId());
         collectThumbsUpDO.setThumbsUpCount(collectThumbsUpDO.getThumbsUpCount() + 1);
         this.collectThumbsUpDOMapper.updateThumbsUpCountByPrimaryKeySelective(collectThumbsUpDO);
+        // 记录点赞用户行为
+        this.userService.thumbUp(userDomain);
+    }
+
+    /**
+     * 是否点过赞
+     * @param userDomain
+     * @return
+     */
+    @Override
+    public boolean hasGiven(UserDomain userDomain) {
+        String hasGiveThumbUp = this.userService.getHasGiveThumbUp(userDomain);
+        if (StringUtils.equals(hasGiveThumbUp, "yes")) {
+            return true;
+        }
+        return false;
     }
 
     public CollectThumbsUpDO convertFromDomain(CollectThumbsUpDomain collectThumbsUpDomain) {

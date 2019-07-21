@@ -45,4 +45,8 @@ public class UserDomain {
 
     // 用户打卡条目
     private List<ClockInDomain> clockInDomainList;
+
+    private String ignoreTs;
+
+    private String hasGiveThumbUp;
 }

@@ -45,4 +45,17 @@ public interface UserService {
      * @param userDomain
      */
     public void register(UserDomain userDomain) throws ResponseException;
+
+    /**
+     * 记录用户点赞行为
+     * @param userDomain
+     */
+    public void thumbUp(UserDomain userDomain);
+
+    /**
+     * 获取点赞记录
+     * @param userDomain
+     * @return
+     */
+    public String getHasGiveThumbUp(UserDomain userDomain);
 }
