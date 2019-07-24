@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.sop</groupId>
     <artifactId>mini-program-backend</artifactId>
-    <version>0.0.9-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>mini-program-backend</name>
     <description>The backend of mini program</description>
 
