@@ -75,7 +75,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
+            <version>3.18.0</version>
         </dependency>
 
         <!-- 引入 lombok 优化 Pojo 类 -->
